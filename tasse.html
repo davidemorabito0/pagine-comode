@@ -51,7 +51,7 @@
 	<form>
 		<label for="importo">Importo:</label>
 		<input type="number" step="0.01" min="0" id="importo" name="importo" required><br><br>
-		<input type="button" value="Genera numeri" onclick="calcolaValori()"><br><br>
+		<input type="button" value="Vediamo un po'" onclick="calcolaValori()"><br><br>
 	</form>
 	<p id="netto"></p>
 	<p id="tasse"></p>
@@ -63,6 +63,7 @@
 			var tasse = importo * 0.3;
 			document.getElementById("netto").innerHTML = "Netto: " + netto.toFixed(2);
 			document.getElementById("tasse").innerHTML = "Tasse: " + tasse.toFixed(2);
+			margin-top: 50px;
 			document.getElementById("testo_finale").innerHTML = "Le tasse provengono dalla somma del 5% dell'aliquota fissa e il 22% di INPS";
 		}
 	</script>
