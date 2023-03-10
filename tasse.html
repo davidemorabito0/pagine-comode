@@ -1,71 +1,96 @@
 <!DOCTYPE html>
-<link rel="icon" type="image/jpg" href="piange.jpg">
-<!DOCTYPE html>
 <html>
 <head>
-
-	<title>Calcolatore Fattura</title>
+	<title>Calcolo tasse</title>
 	<style>
 		body {
-			background-color: #005F6B;
+			background-color: #222A68;
 			color: white;
-			text-align: center;
 			font-family: Arial, sans-serif;
-			margin-top: 150px;
 		}
+
 		h1 {
-			font-size: 32px;
-		}
-		form {
-			margin-top: 20px;
-		}
-		label {
-			display: block;
-			font-size: 24px;
-			margin-bottom: 10px;
-		}
-		input[type="number"] {
-			font-size: 24px;
-			padding: 5px;
-			border-radius: 5px;
-			border: none;
 			text-align: center;
-			width: 200px;
 		}
-		input[type="button"] {
-			font-size: 24px;
-			padding: 10px 20px;
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+
+		label {
+			margin-bottom: 10px;
+			font-size: 20px;
+		}
+
+		input[type="number"] {
+			padding: 5px;
+			font-size: 20px;
 			border-radius: 5px;
 			border: none;
-			background-color: #F0A202;
-			color: white;
-			cursor: pointer;
-			margin-top: 20px;
+			width: 100%;
+			max-width: 400px;
+			margin-bottom: 20px;
 		}
-		p {
-			font-size: 24px;
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			font-size: 20px;
+			cursor: pointer;
+			transition: background-color 0.2s;
+			width: 100%;
+			max-width: 400px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #3E8E41;
+		}
+
+		.result {
 			margin-top: 20px;
+			font-size: 24px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 	</style>
 </head>
 <body>
-	<h1>Calcolatore Fattura</h1>
-	<form>
-		<label for="importo">Importo:</label>
-		<input type="number" step="0.01" min="0" id="importo" name="importo" required><br><br>
-		<input type="button" value="Vediamo un po'" onclick="calcolaValori()"><br><br>
+	<h1>Calcolo tasse</h1>
+
+	<form onsubmit="calcolaTasse(event)">
+		<label>Inserisci l'importo che metterai in fattura</label>
+		<input type="number" id="importo" required>
+
+		<input type="submit" value="Calcola">
 	</form>
-	<p id="netto"></p>
-	<p id="tasse"></p>
-	<p id="testo_finale"></p>
+
+	<div id="risultato" class="result" style="display:none">
+		<p>Tasse: <span id="tasse"></span></p>
+		<p>Netto: <span id="netto"></span></p>
+	</div>
+
 	<script>
-		function calcolaValori() {
-			var importo = document.getElementById("importo").value;
-			var netto = importo * 0.73;
-			var tasse = importo * 0.3;
-			document.getElementById("netto").innerHTML = "Netto: " + netto.toFixed(2);
-			document.getElementById("tasse").innerHTML = "Tasse: " + tasse.toFixed(2);
-			document.getElementById("testo_finale").innerHTML = "Le tasse provengono dalla somma: 5% l'aliquota fissa e il 22% di INPS";
+		function calcolaTasse(event) {
+			event.preventDefault();
+			
+			// Prende il valore dell'input
+			const importo = document.getElementById("importo").value;
+			
+			// Calcola le tasse e il netto
+			const tasse = importo * 0.27;
+			const netto = importo - tasse;
+
+			// Mostra il risultato
+			document.getElementById("tasse").innerText = tasse.toFixed(2);
+			document.getElementById("netto").innerText = netto.toFixed(2);
+			document.getElementById("risultato").style.display = "block";
 		}
 	</script>
 </body>
