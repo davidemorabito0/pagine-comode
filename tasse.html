@@ -1,80 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="icon" href="favicon.ico">
-    <title>Calcolatore Fatture</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            background-color: #005F6B;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 150px;
+    <title>Calcolatore Fatture</title>
+    <script>
+        function calcolaNetto() {
+            var lordo = parseFloat(document.getElementById("lordo").value);
+            var percentualeTasse = parseFloat(document.getElementById("percentualeTasse").value) / 100;
+            var tasse = lordo * percentualeTasse;
+            var netto = lordo - tasse;
+            document.getElementById("netto").value = netto.toFixed(2);
+            document.getElementById("tasse").value = tasse.toFixed(2);
         }
 
-        input[type=number] {
-            width: 200px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            margin-bottom: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
+        function calcolaLordo() {
+            var netto = parseFloat(document.getElementById("netto").value);
+            var percentualeTasse = parseFloat(document.getElementById("percentualeTasse").value) / 100;
+            var lordo = netto / (1 - percentualeTasse);
+            var tasse = lordo * percentualeTasse;
+            document.getElementById("lordo").value = lordo.toFixed(2);
+            document.getElementById("tasse").value = tasse.toFixed(2);
         }
-
-        input[type=button] {
-            background-color: #F0A202;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-
-        #nettoOutput,
-        #tasseOutput,
-        #lordoOutput,
-        #tasseOutput2 {
-            font-size: 24px;
-        }
-    </style>
+    </script>
 </head>
-
 <body>
-	<h1>Calcolatore Fatture</h1>
-	
-	<h2>Inserisci il Lordo che metterai in fattura</h2>
-	<input type="number" id="lordoInput" placeholder="Inserisci l'importo">
-	<input type="button" value="Calcola" onclick="calcolaNettoETasse()">
-	<p>Netto: <span id="nettoOutput"></span></p>
-	<p>Tasse: <span id="tasseOutput"></span></p>
-
-	<h2>Dimmi quanto vuoi di Netto, ti calcolerò il lordo da inserire</h2>
-	<input type="number" id="nettoInput" placeholder="Inserisci l'importo">
-	<input type="button" value="Calcola" onclick="calcolaLordoETasse()">
-	<p>Lordo: <span id="lordoOutput"></span></p>
-	<p>Tasse: <span id="tasseOutput2"></span></p>
-
-	<script>
-		function calcolaNettoETasse() {
-			var lordo = document.getElementById("lordoInput").value;
-			var netto = parseFloat(lordo) * 0.73;
-			var tasse = parseFloat(lordo) * 0.27;
-			document.getElementById("nettoOutput").innerHTML = netto.toFixed(2);
-			document.getElementById("tasseOutput").innerHTML = tasse.toFixed(2);
-		}
-
-		function calcolaLordoETasse() {
-			var netto = document.getElementById("nettoInput").value;
-			var lordo = parseFloat(netto) / 0.73;
-			var tasse = lordo * 0.27;
-			document.getElementById("lordoOutput").innerHTML = lordo.toFixed(2);
-			document.getElementById("tasseOutput2").innerHTML = tasse.toFixed(2);
-		}
-	</script>
+    <h1>Calcolatore Fatture</h1>
+    <label for="lordo">Importo Lordo:</label>
+    <input type="number" id="lordo" oninput="calcolaNetto()">
+    <br>
+    <label for="percentualeTasse">Percentuale Tasse:</label>
+    <input type="number" id="percentualeTasse" value="22" oninput="calcolaNetto()">
+    <br>
+    <label for="netto">Importo Netto:</label>
+    <input type="number" id="netto" oninput="calcolaLordo()">
+    <br>
+    <label for="tasse">Tasse:</label>
+    <input type="number" id="tasse" readonly>
 </body>
 </html>
